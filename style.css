@@ -1,0 +1,270 @@
+/* ============================================================
+   Nicolas Bulgarides — Volunteer College Counseling flyer
+   Single-page static stylesheet. Mobile-first.
+   Quick-edit guide:
+     · COLORS   → :root (--ink, --paper, --accent, etc.)
+     · FONTS    → :root (--font-display, --font-body)
+     · SPACING  → :root (--space-* scale) + .section margins
+   ============================================================ */
+
+/* ---------- DESIGN TOKENS ---------- */
+:root {
+  /* COLOR PALETTE — warm "paper & ink" with a deep teal accent.
+     Chosen to feel editorial and trustworthy, not corporate. */
+  --paper:        #faf6ef;  /* page background — warm off-white */
+  --paper-card:   #ffffff;  /* card / panel surface */
+  --ink:          #1f2a2e;  /* primary text — near-black, slightly green */
+  --ink-soft:     #4a585c;  /* secondary text */
+  --accent:       #15605a;  /* deep teal — headings, buttons, links */
+  --accent-deep:  #0e413d;  /* hover / hero background */
+  --accent-tint:  #e7efe9;  /* soft fill for chips & cards-on-hero */
+  --hairline:     #e3ddd2;  /* subtle borders */
+  --gold:         #c98a3a;  /* warm accent for small flourishes */
+
+  /* FONTS */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body:    "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* SPACING SCALE (rem) */
+  --space-1: 0.5rem;
+  --space-2: 0.75rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.25rem;
+  --space-6: 3.5rem;
+  --space-7: 5rem;
+
+  /* SHAPE */
+  --radius:   14px;
+  --radius-sm: 9px;
+  --maxw:     720px;   /* content measure — keeps line length readable */
+}
+
+/* ---------- RESET / BASE ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;      /* ~17px base for comfortable phone reading */
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Centered, padded content column */
+.wrap {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+a { color: var(--accent); }
+
+/* Visible focus ring for keyboard users (accessibility) */
+a:focus-visible,
+.btn:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- HERO / VISUAL ANCHOR ---------- */
+.hero {
+  /* Deep teal anchor band at the top — the first thing a phone shows. */
+  background: radial-gradient(120% 140% at 80% -10%, var(--accent) 0%, var(--accent-deep) 70%);
+  color: #f4efe6;
+  padding-block: var(--space-7) var(--space-6);
+  /* Soft organic curve at the bottom edge */
+  border-bottom-left-radius: 36px;
+  border-bottom-right-radius: 36px;
+}
+
+.hero__inner { text-align: center; }
+
+.eyebrow {
+  margin: 0 0 var(--space-3);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #bfe0d6;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.4rem, 9vw, 3.6rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.hero__role {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(1.1rem, 4.5vw, 1.4rem);
+  color: #d9efe6;
+  margin: var(--space-2) 0 0;
+}
+
+.hero__tagline {
+  max-width: 30ch;
+  margin: var(--space-4) auto var(--space-5);
+  font-size: 1.05rem;
+  color: #eae3d6;
+}
+
+/* ---------- BUTTONS ---------- */
+.btn {
+  display: inline-block;
+  background: var(--gold);
+  color: #2a1c08;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.8em 1.6em;
+  border-radius: 999px;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.btn:hover { background: #d99a4e; transform: translateY(-1px); }
+
+.btn--lg {
+  font-size: 1.1rem;
+  font-family: var(--font-body);
+  word-break: break-word;   /* keeps long email from overflowing on phones */
+}
+
+/* ---------- SECTIONS ---------- */
+.section {
+  margin-block: var(--space-6);
+}
+
+.section__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.4rem, 6vw, 1.85rem);
+  color: var(--accent);
+  margin: 0 0 var(--space-3);
+  line-height: 1.15;
+}
+/* Small gold underline flourish under each section heading */
+.section__title::after {
+  content: "";
+  display: block;
+  width: 42px;
+  height: 3px;
+  margin-top: var(--space-2);
+  background: var(--gold);
+  border-radius: 3px;
+}
+
+/* About */
+.lede {
+  font-size: 1.15rem;
+  margin: 0 0 var(--space-3);
+}
+.note {
+  color: var(--ink-soft);
+  font-style: italic;
+  margin: 0;
+}
+
+/* ---------- "WHAT I HELP WITH" CARDS ---------- */
+.cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: 1fr;   /* single column on phones */
+}
+
+.card {
+  background: var(--paper-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  /* Soft, low shadow — keeps it light, not heavy/corporate */
+  box-shadow: 0 1px 2px rgba(31, 42, 46, 0.04);
+}
+
+.card__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.18rem;
+  color: var(--ink);
+  margin: 0 0 var(--space-1);
+}
+.card__text {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 1rem;
+}
+
+/* ---------- "WHO THIS IS FOR" PANEL ---------- */
+.who {
+  background: var(--accent-tint);
+  border: 1px solid #cfe0d6;
+  border-radius: var(--radius);
+  padding: var(--space-5);
+}
+.who .section__title { margin-bottom: var(--space-2); }
+.who__text {
+  font-size: 1.12rem;
+  margin: 0;
+}
+.who__text strong { color: var(--accent-deep); }
+
+/* ---------- CONTACT CTA ---------- */
+.contact {
+  text-align: center;
+  padding: var(--space-6) var(--space-4);
+  background: var(--paper-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+}
+.contact .section__title { color: var(--accent); }
+.contact .section__title::after { margin-inline: auto; } /* center flourish */
+.contact__text {
+  color: var(--ink-soft);
+  margin: 0 auto var(--space-4);
+  max-width: 34ch;
+}
+
+/* ---------- FOOTER ---------- */
+.footer {
+  margin-top: var(--space-6);
+  padding-block: var(--space-4);
+  border-top: 1px solid var(--hairline);
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  text-align: center;
+}
+.footer p { margin: 0; }
+
+/* ============================================================
+   RESPONSIVE — wider screens (tablet / desktop)
+   Mobile-first above; these only enhance larger viewports.
+   ============================================================ */
+@media (min-width: 620px) {
+  /* Two-column card grid once there's room */
+  .cards { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 820px) {
+  body { font-size: 1.09375rem; }
+  .hero { padding-block: 6rem 5rem; }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
